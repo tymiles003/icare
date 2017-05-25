@@ -7,6 +7,8 @@ end
 # Web interface
 if defined?(Resque::Server)
   Resque::Server.use(Rack::Auth::Basic) do |user_name, password|
-    [user_name, password] == [APP_CONFIG.resque.user_name, APP_CONFIG.resque.password]
+    # rubocop:disable Style/YodaCondition
+    [APP_CONFIG.resque.user_name, APP_CONFIG.resque.password] == [user_name, password]
+    # rubocop:enable Style/YodaCondition
   end
 end
